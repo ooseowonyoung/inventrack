@@ -4,7 +4,9 @@ namespace App\Filament\Resources\Items\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -14,37 +16,49 @@ class ItemsTable
     {
         return $table
             ->columns([
-                TextColumn::make('nama_barang')
-                    ->searchable(),
+                ImageColumn::make('image')
+                    ->label('Foto')
+                    ->disk('public'),
                 TextColumn::make('kode_barang')
-                    ->searchable(),
+                    ->label('Kode')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('nama_barang')
+                    ->label('Nama Barang')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('stok')
-                    ->numeric()
+                    ->label('Stok')
                     ->sortable(),
                 TextColumn::make('harga')
-                    ->numeric()
+                    ->label('Harga')
+                    ->money('IDR')
                     ->sortable(),
                 TextColumn::make('kondisi')
-                    ->searchable(),
+                    ->label('Kondisi')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'Baik' => 'success',
+                        'Rusak Ringan' => 'warning',
+                        'Rusak Berat' => 'danger',
+                        default => 'gray',
+                    }),
                 TextColumn::make('lokasi')
-                    ->searchable(),
-                TextColumn::make('users_id')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Lokasi')
+                    ->badge(),
+                TextColumn::make('user.name')
+                    ->label('Ditambahkan Oleh'),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Tanggal')
+                    ->dateTime('d M Y')
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
