@@ -41,9 +41,9 @@ class SupplierForm
                     ->rows(3),
                 FileUpload::make('image')
                     ->label('Logo Perusahaan')
+                    ->disk('public')
                     ->image()
                     ->directory('suppliers')
-                    ->visibility('public')
                     ->required(),
             ]);
     }

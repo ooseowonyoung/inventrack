@@ -18,7 +18,8 @@ class SuppliersTable
             ->columns([
                 ImageColumn::make('image')
                     ->label('Logo')
-                    ->disk('public'),
+                    ->disk('public')
+                    ->circular(),
                 TextColumn::make('nama_perusahaan')
                     ->label('Perusahaan')
                     ->searchable()
