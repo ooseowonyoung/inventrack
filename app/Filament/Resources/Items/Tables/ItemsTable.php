@@ -17,8 +17,9 @@ class ItemsTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Foto')
-                    ->disk('public'),
+    ->label('Foto')
+    ->disk('public')
+    ->circular(),
                 TextColumn::make('kode_barang')
                     ->label('Kode')
                     ->searchable()

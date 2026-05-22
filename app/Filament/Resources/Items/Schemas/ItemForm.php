@@ -58,12 +58,12 @@ class ItemForm
                     ->placeholder('Jelaskan detail barang ini')
                     ->required()
                     ->rows(3),
-                FileUpload::make('image')
-                    ->label('Foto Barang')
-                    ->image()
-                    ->directory('items')
-                    ->visibility('public')
-                    ->required(),
+               FileUpload::make('image')
+    ->label('Foto Barang')
+    ->image()
+    ->disk('public')
+    ->directory('items')
+    ->required(),
                 Hidden::make('users_id'),
             ]);
     }

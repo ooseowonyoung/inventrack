@@ -24,11 +24,11 @@ class CategoryForm
                     ->required()
                     ->rows(3),
                 FileUpload::make('image')
-                    ->label('Foto Kategori')
-                    ->image()
-                    ->directory('categories')
-                    ->visibility('public')
-                    ->required(),
+    ->label('Foto Kategori')
+    ->image()
+    ->disk('public')
+    ->directory('categories')
+    ->required(),
             ]);
     }
 }
